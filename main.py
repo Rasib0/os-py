@@ -2,6 +2,8 @@ from operator import truediv
 from functionsDictionary import function_list
 from memory import *
 
+
+
 def writeInMemory(contents: list):
     # i assume this register holds the memory address
     memoryIndex = dataRegister['counter']
