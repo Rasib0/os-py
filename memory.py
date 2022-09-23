@@ -1,4 +1,5 @@
 from Register import Register
+from utils.conversions import twoBytesToHex
 
 addressSize = 16
 
@@ -20,4 +21,23 @@ dataRegister = {"base": Register(),
                "limit": Register(),
                "counter": Register()}
 
-flagRegister = [False] * 16
+flagRegister = Register()
+
+
+#Display all the registers as a formated string
+def displayMemory():
+    gString = "General purpose registers:\n"
+    for r in R:
+        gString += r.hexString() + " "
+
+    sString = "Special purpose registers:\n"
+    for r in codeRegister:
+        sString += codeRegister[r].hexString() + " "
+    
+    for r in stackRegister:
+        sString += codeRegister[r].hexString() + " "
+
+    for r in dataRegister:
+        sString += codeRegister[r].hexString() + " "
+    print(gString)
+    print(sString)

@@ -1,31 +1,44 @@
-from operator import truediv
 from functionsDictionary import function_list
 from memory import *
+from utils.conversions import twoBytesToInt
 
-#TBD the structure of this file
-
-def writeInMemory(contents: list):
-    # i assume this register holds the memory address
-    memoryIndex = dataRegister['counter']
+#writes in memory starting from location
+def writeInMemory(contents: list, location: int):
     for i in len(contents):
-        memory[memoryIndex+i] = bytearray(contents[i])
+        memory[location+i] = bytearray(contents[i])
 
-
-def decode(index: int):
-    return int(index)
-
-def execute(opcode: int):
+#calls the function for the opcode
+def decodeAndExecute(opcode: int):
     function_list[opcode]()
 
+
+#fetch the byte stream 
 with open('p1.txt') as f:
-    contents = f.read().split() #array of all the bytes. We can do this line by line as well
-    
-#First we check if the byte is a opcode, then
-nextByte = 1
-#tbd
-for byteStr in contents:
-    opcode = decode()
-    execute(opcode)
+    byteString = f.read().split()
+
+memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #I assume dataRegister['counter'] holds the memory address which is currently 0
+print(memoryIndex)
+#writeInMemory(byteString, memoryIndex)
+codeRegister['counter'] = memoryIndex
+
+
+#the execution loop
+def start():
+    while(True):
+        opcode = int(codeRegister['counter'])
+
+        if(opcode == 243): #break the execution loop at opcode for END
+            break
+        decodeAndExecute(opcode)
+        displayMemory()
+
+displayMemory()
+
+
+
+
+
+
 
 
 
