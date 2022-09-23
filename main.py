@@ -1,7 +1,7 @@
-from functions import updatePC
 from memory import *
 from utils.conversions import twoBytesToInt
-from utils.systemOperations import decodeAndExecute, writeInMemory
+from functionsDictionary import function_list
+from utils.systemOperations import memoryAtPc, writeInMemory, updatePC
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:
@@ -11,10 +11,16 @@ memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #Assuming data
 writeInMemory(byteString, memoryIndex)
 codeRegister['counter'].insert(memoryIndex)
 
+
+#calls the function for the opcode
+def decodeAndExecute(opcode: int):
+    function_list[opcode]()
+
+
 #the execution loop
 def start():
     while(True):
-        opcode = int(memory[codeRegister['counter']])
+        opcode = memoryAtPc()
 
         if(opcode == 243): #break the execution loop at opcode for END
             break
@@ -24,7 +30,6 @@ def start():
 
         decodeAndExecute(opcode)
         displayMemory()
-
 start()
 
 
