@@ -6,9 +6,8 @@ from utils.systemOperations import decodeAndExecute, writeInMemory
 with open('p1.txt') as f:
     byteString = f.read().split()
 
-memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #I assume dataRegister['counter'] holds the memory address which is currently 0
-print(memoryIndex)
-#writeInMemory(byteString, memoryIndex)
+memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #Assuming dataRegister['counter'] holds the memory address which is currently 0
+writeInMemory(byteString, memoryIndex)
 codeRegister['counter'] = memoryIndex
 
 

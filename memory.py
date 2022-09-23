@@ -35,9 +35,9 @@ def displayMemory():
         sString += codeRegister[r].hexString() + " "
     
     for r in stackRegister:
-        sString += codeRegister[r].hexString() + " "
+        sString += stackRegister[r].hexString() + " "
 
     for r in dataRegister:
-        sString += codeRegister[r].hexString() + " "
+        sString += dataRegister[r].hexString() + " "
     print(gString)
     print(sString)
