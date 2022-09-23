@@ -1,40 +1,75 @@
-from memory import Register, memory, codeRegister
+from memory import *
 from utils.conversions import twoBytesToInt, intToTwoBytes
 
 #Register-register Instructions
-def mov(A: Register, B: Register):
-    A.storedBytes = B.storedBytes
-    updatePC(3)
 
-def add(A: Register, B: Register):
+def mov():
+    [A, B] = registerRegisterOperands()
+    A.storedBytes = B.storedBytes
+
+def add():
+    [A, B] = registerRegisterOperands()
     sum = A.intValue() + B.intValue()
     A.insert(sum) 
-    updatePC(4)
 
-def sub(A: Register, B: Register):
+def sub():
+    [A, B] = registerRegisterOperands()
     sum = A.intValue() - B.intValue()
     A.insert(sum)
-    updatePC(4)
 
 #Register-Immediate Instructions
-def movi(A: Register, immediate: bytearray):
+def movi():
+    [A, immediate] = registerImmediateOperands()
     A.storedBytes = immediate
 
-def addi(A: Register, immediate: bytearray):
-    sum = A.intValue() + twoBytesToInt(immediate)
+def addi():
+    [A, immediate] = registerImmediateOperands()
+    sum = A.intValue() + immediate
     A.insert(sum) 
-    updatePC(4)
 
-def subi(A: Register, immediate: bytearray):
-    sum = A.intValue() - twoBytesToInt(immediate)
+def subi():
+    [A, immediate] = registerImmediateOperands()
+    sum = A.intValue() - immediate
     A.insert(sum)
-    updatePC(4)
 #Memory Instructions
 
 #Single Operand Instructions
 
 #No Operand Instructions
 
-#utility
+#Operands
+def registerRegisterOperands():
+    A = currPcRegister()
+    B = currPcRegister()
+    return [A, B]
+
+def registerImmediateOperands():
+    A = currPcRegister()
+    mem = currPcImmediateValue()
+    return [A, mem]
+
+def singleOperands():
+    A = currPcRegister()
+    return A
+
+#fetches the register in memory currently and updates PC
+def currPcRegister() -> Register:
+    A = R[pcMemValue()]
+    updatePC(1)
+    return A
+
+#fetches the immediate value in memory currently and updates PC
+def currPcImmediateValue() -> int:
+    temp = bytearray(2)
+    temp[0]  = pcMemValue()
+    updatePC(1)
+    temp[1] =  pcMemValue()
+    mem = twoBytesToInt(temp)
+    updatePC(1)
+    return mem
+
+def pcMemValue():
+    return int(memory[codeRegister['count'].intValue])
+
 def updatePC(by_index: int):
     codeRegister['counter'] = codeRegister['counter'] + by_index
