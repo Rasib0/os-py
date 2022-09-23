@@ -1,7 +1,5 @@
 from memory import Register
-from memory import memory, codeRegister
 from utils import updatePC
-
 
 def mov(A: Register, B: bytearray):
     A.storedBytes = B.storedBytes

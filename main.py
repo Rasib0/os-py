@@ -2,7 +2,7 @@ from operator import truediv
 from functionsDictionary import function_list
 from memory import *
 
-
+#TBD the structure of this file
 
 def writeInMemory(contents: list):
     # i assume this register holds the memory address

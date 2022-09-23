@@ -8,14 +8,11 @@ class Register:
     def value(self):
         return (self.storedBytes[0] << 4) + self.storedBytes[1]
 
-
-    #when given a 16 bit value insert in the register
+    #when given a 16 bit value store it in the register
     def insert(self, value):
         if( value >= 256):
             self.storedBytes[0] = value & 0b1111
             self.storedBytes[1] = value >> 4
-
-
         else:
             self.storedBytes[0] = 0
             self.storedBytes[1] = value
