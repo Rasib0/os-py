@@ -1,3 +1,4 @@
 class Register:
-    def __init__(self, name, age):
-        self.content = bytearray(2)
+    storedBytes  = 0
+    def __init__():
+        storedBytes = bytearray(2)

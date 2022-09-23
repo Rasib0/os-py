@@ -1,6 +1,5 @@
 from Register import Register
 
-
 addressSize = 16
 
 memory = bytearray(2**addressSize)
@@ -9,11 +8,9 @@ memory = bytearray(2**addressSize)
 R= [Register()]*16
 
 #Special purpose registers
-
 codeRegister = {"base": Register(),
                "limit": Register(),
                "counter": Register()}
-
 
 stackRegister = {"base": Register(),
                "limit": Register(),
@@ -24,8 +21,3 @@ dataRegister = {"base": Register(),
                "counter": Register()}
 
 flagRegister = [False] * 16
-
-
-print(dataRegister)
-
-
