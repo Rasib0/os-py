@@ -18,8 +18,6 @@ def start():
             print("END OF PROCESS.")
             break
         #the instruction is to more memory at offset 20 to R3
-        memory[20] = 31
-        memory[21] = 31
 
         print("Opcode: ", opcode)
         execute(opcode)

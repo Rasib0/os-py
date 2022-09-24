@@ -1,4 +1,4 @@
-from memory import R
+from memory import memory
 from utils.conversions import intToTwoBytes
 from utils.register_utils import registerImmediateOperands, registerRegisterOperands
 
@@ -31,7 +31,18 @@ def subi():
     [A, immediate] = registerImmediateOperands()
     sum = A.intValue() - immediate
     A.insert(sum)
-#Memory Instructions
+#Memory Instructions using immediate offset
+def movl():
+    [A, immediate] = registerImmediateOperands()
+    A.storedBytes[0] = memory[immediate]
+    A.storedBytes[1] = memory[immediate+1]
+
+
+def movs():
+    [A, immediate] = registerImmediateOperands()
+    memory[immediate] = A.storedBytes[0]
+    memory[immediate+1] = A.storedBytes[1]
+
 
 #Single Operand Instructions
 
