@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../OSproject')
-from operation_dict import operations_list
+from operators import operations_list
 from utils.counter_utils import memoryAtPc, updatePc
 from memory import memory, R, flagRegister
 from utils.flag_utils import CF, ZF, SF, OF
