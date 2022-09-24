@@ -1,6 +1,6 @@
 from memory import R
 from utils.conversions import intToTwoBytes
-from utils.systemOperations import currPcImmediateValue, currPcRegister
+from utils.register_operations import registerImmediateOperands, registerRegisterOperands
 
 #Register-register Instructions
 def mov():
@@ -36,19 +36,4 @@ def subi():
 #Single Operand Instructions
 
 #No Operand Instructions
-
-#Operands
-def registerRegisterOperands():
-    A = currPcRegister()
-    B = currPcRegister()
-    return [A, B]
-
-def registerImmediateOperands():
-    A = currPcRegister()
-    mem = currPcImmediateValue()
-    return [A, mem]
-
-def singleOperands():
-    A = currPcRegister()
-    return A
 

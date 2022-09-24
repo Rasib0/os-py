@@ -1,6 +1,6 @@
 from memory import *
-from functionsDictionary import function_list
-from utils.systemOperations import memoryAtPc, pcIntValue, writeInMemory, updatePC
+from utils.pc_operations import setPc
+from utils.execution_operations import  decode, displayMemory, writeInMemory,  execute
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:
@@ -8,17 +8,7 @@ with open('p1-test.txt') as f:
 
 memoryIndex = 0
 writeInMemory(byteString, memoryIndex)
-codeRegister['counter'].insert(memoryIndex)
-
-#calls the function for the opcode
-def decode():
-    opcode = memoryAtPc()
-    updatePC(1)
-    return opcode
-
-def execute(opcode: int):
-    function_list[opcode]()
-
+setPc(memoryIndex)
 
 #the execution loop
 def start():
@@ -26,9 +16,9 @@ def start():
         opcode = decode()
 
         if(opcode == 243): #break the execution loop at opcode for END
-            print("END OF PROCESS. CURRENT PC: ", pcIntValue())
+            print("END OF PROCESS.")
             break
-        
+    
         execute(opcode)
         displayMemory()
         print()

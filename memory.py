@@ -29,22 +29,3 @@ dataRegister = {"base": Register(),
                "counter": Register()}
 
 flagRegister = [False]*16
-
-
-#Display all the registers as a formated string
-def displayMemory():
-    gString = "General purpose registers:\n"
-    for r in R:
-        gString += r.hexString() + " "
-
-    sString = "Special purpose registers:\n"
-    for r in codeRegister:
-        sString += codeRegister[r].hexString() + " "
-    
-    for r in stackRegister:
-        sString += stackRegister[r].hexString() + " "
-
-    for r in dataRegister:
-        sString += dataRegister[r].hexString() + " "
-    print(gString)
-    print(sString)

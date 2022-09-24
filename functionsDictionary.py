@@ -1,4 +1,4 @@
-from functions import * 
+from functions import *
 
 function_list = {
             16: mov,
@@ -10,4 +10,3 @@ function_list = {
             31: addi,
             32: subi
             }
-

@@ -4,14 +4,6 @@ from memory import memory, codeRegister, R
 from Register import Register
 from utils.conversions import twoBytesToInt
 
-#writes in memory starting from location
-def writeInMemory(contents: list, location: int):
-    for i in range(len(contents)):
-        memory[location+i] = int(contents[i])
-
-
-
-
 #returns the int value of memory at pc
 def memoryAtPc():
     return int(memory[pcIntValue()])
@@ -20,6 +12,9 @@ def memoryAtPc():
 def pcIntValue():
     return codeRegister['counter'].intValue()
 
+def setPc(value: int):
+    codeRegister['counter'].insert(value)
+    
 #updates PC by the index value
 def updatePC(by_index: int):
     codeRegister['counter'].insert(codeRegister['counter'].intValue() + by_index)
