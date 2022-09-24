@@ -1,5 +1,4 @@
 from memory import *
-from utils.conversions import twoBytesToInt
 from functionsDictionary import function_list
 from utils.systemOperations import memoryAtPc, pcIntValue, writeInMemory, updatePC
 

@@ -1,5 +1,4 @@
 from Register import Register
-from utils.conversions import twoBytesToHex
 
 addressSize = 16
 

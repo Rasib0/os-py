@@ -1,7 +1,6 @@
-from Register import Register
 from memory import R
-from utils.conversions import twoBytesToInt, intToTwoBytes
-from utils.systemOperations import memoryAtPc, pcIntValue, updatePC
+from utils.conversions import intToTwoBytes
+from utils.systemOperations import currPcImmediateValue, currPcRegister
 
 #Register-register Instructions
 def mov():
@@ -52,20 +51,4 @@ def registerImmediateOperands():
 def singleOperands():
     A = currPcRegister()
     return A
-
-#fetches the register in memory currently and updates PC
-def currPcRegister() -> Register:
-    A = R[memoryAtPc()]
-    updatePC(1)
-    return A
-
-#fetches the immediate value in memory currently and updates PC
-def currPcImmediateValue() -> int:
-    temp = bytearray(2)
-    temp[0]  = memoryAtPc()
-    updatePC(1)
-    temp[1] =  memoryAtPc()
-    mem = twoBytesToInt(temp)
-    updatePC(1)
-    return mem
 
