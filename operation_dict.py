@@ -13,15 +13,16 @@ operations_list = {
             32: subi,
             51: movl,
             52: movs,
-            #71: shl,
-            #72: shr,
-            #73: rtl,
-            #74: rtr,
-            #75: inc,
-            #76: dec,
-            #78: push,
-            #79: pop,
-            #241:returnOp,
-            #243:noop,
-            #244:end
+            71: shl,
+            72: shr,
+            73: rtl,
+            74: rtr,
+            75: inc,
+            76: dec,
+            77: push,
+            78: pop,
+            241:return_,
+            243:noop,
+            244:end
             }
+

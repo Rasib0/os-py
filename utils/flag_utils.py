@@ -5,7 +5,6 @@ from memory import flagRegister
 def checkBit(num: int, position: int) -> int:
    return (num >> position) & 1
 
-
 def CF():
     return checkBit(flagRegister.intValue(), 0)
 def ZF():

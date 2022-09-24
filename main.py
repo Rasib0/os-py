@@ -1,6 +1,6 @@
 from memory import *
-from utils.pc_utils import setPc
-from utils.execution_utils import  decode, displayMemory, writeInMemory,  execute
+from utils.counter_utils import scIntValue, setPc
+from utils.execution_functions import  decode, displayMemory, writeInMemory,  execute
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:
@@ -10,18 +10,24 @@ writeInMemory(byteString, 0)
 setPc(0)
 
 #the execution loop
+
+Running = True
+
 def start():
-    while(True):
+    while(Running):
         opcode = decode()
 
         if(opcode == 243): #break the execution loop at opcode for END
             print("END OF PROCESS.")
             break
-        
+
+        #print(stack)
+        #print(scIntValue())
         print("Opcode: ", opcode)
         execute(opcode)
+        #print(stack)
+        print(scIntValue())
         displayMemory()
-        print()
 
 start()
 
