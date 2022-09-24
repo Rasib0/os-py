@@ -1,6 +1,7 @@
 def twoBytesToInt(input: bytearray) -> int: #input: bytearray size 2, output: int value
     return (input[0] << 8) + input[1]
 
+
 def twoBytesToHex(input: bytearray) -> str: #input: bytearray size 2 , output: hex string 
     lower = hex(input[1])
     lower = lower[2:len(lower)]
