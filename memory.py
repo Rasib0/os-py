@@ -29,7 +29,7 @@ stackRegister = {"base": Register(),
 dataRegister = {"base": Register(),
                "counter": Register()}
 
-flagRegister = Register()
+flagRegister = [False]*16
 
 
 #Display all the registers as a formated string

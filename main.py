@@ -25,9 +25,11 @@ def execute(opcode: int):
 def start():
     while(True):
         opcode = decode()
+
         if(opcode == 243): #break the execution loop at opcode for END
             print("END OF PROCESS. CURRENT PC: ", pcIntValue())
             break
+        
         execute(opcode)
         displayMemory()
         print()
