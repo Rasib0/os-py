@@ -3,10 +3,10 @@ sys.path.append('../OSproject')
 from utilityFunctions.FlagOperations import *
 from utilityFunctions.genericCounterOperations import setPc
 from utilityFunctions.counterMemoryOperations import popStackToRegister, pushRegisterToStack, returnPcFromSc, pushPcToSc, fetchImmediateFromPc, fetchRegisterFromPc
-from InstructionSet.getInstructionOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleImmediateOperand, getSingleRegisterOperand
 from Memory import memory
 
 #------------------Register-register Instructions-------------------#
+
 def mov():
     [A, B] = getRegisterRegisterOperands()
 
@@ -111,7 +111,6 @@ def ori():
     ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
     A.insert(sum)
 
-
 def bz():
     offset = getSingleImmediateOperand()
     if(ZF() == 1): setPc(offset)
@@ -141,6 +140,7 @@ def act():
     pass
 
 #-----------Memory Instructions using immediate offset-------------#
+
 def movl():
     [A, immediate] = getRegisterImmediateOperands()
 
@@ -156,6 +156,7 @@ def movs():
 
 
 #------------------Single Operand Instructions-----------------#
+
 def shl():
     A = getSingleRegisterOperand()
     x = A.intValue()
@@ -204,6 +205,7 @@ def pop():
     popStackToRegister(A)
 
 #----------------No Operand Instructions-----------------#
+
 def return_():
     returnPcFromSc()
 
@@ -211,11 +213,10 @@ def noop():
     pass
 
 def end():
-    pass
-    
+    print("END OF PROCESS")
 
 
-#----------------fetching the operands-------------------#
+#----------------Fetching the Operands-------------------#
 
 #returns 2 registers and updates PC
 
