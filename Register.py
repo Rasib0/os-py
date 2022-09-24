@@ -1,4 +1,4 @@
-from utilityFunctions.conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
+from utilityFunctions.baseConversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
 
 class Register:
     def __init__(self):

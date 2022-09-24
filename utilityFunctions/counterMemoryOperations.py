@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../OSproject')
 from Register import Register
-from utilityFunctions.conversions import twoBytesToInt
+from utilityFunctions.baseConversions import twoBytesToInt
 from utilityFunctions.genericCounterOperations import *
 from Memory  import R
 

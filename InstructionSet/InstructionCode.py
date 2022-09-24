@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../OSproject')
 from Memory import memory
-from utilityFunctions.conversions import intToTwoBytes
+from utilityFunctions.baseConversions import intToTwoBytes
 from utilityFunctions.counterMemoryOperations import popStack, pushStack, returnPcFromSc
 from InstructionSet.getInstructionOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleOperand
 
