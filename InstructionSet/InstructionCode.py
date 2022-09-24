@@ -1,13 +1,10 @@
 import sys
-
-from symbol import pass_stmt
-from utilityFunctions.genericCounterOperations import setPc
 sys.path.append('../OSproject')
-from Memory import memory, codeRegister
 from utilityFunctions.FlagOperations import *
-from utilityFunctions.baseConversions import intToTwoBytes
-from utilityFunctions.counterMemoryOperations import popStackToRegister, pushRegisterToStack, returnPcFromSc, pushPcToSc
+from utilityFunctions.genericCounterOperations import setPc
+from utilityFunctions.counterMemoryOperations import popStackToRegister, pushRegisterToStack, returnPcFromSc, pushPcToSc, fetchImmediateFromPc, fetchRegisterFromPc
 from InstructionSet.getInstructionOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleImmediateOperand, getSingleRegisterOperand
+from Memory import memory
 
 #------------------Register-register Instructions-------------------#
 def mov():
@@ -60,12 +57,11 @@ def or_():
     ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
     A.insert(sum)
 
-#-----------------Register-Immediate Instructions-------------------#
+#------------------Register-Immediate Instructions------------------#
 
 def movi():
     [A, immediate] = getRegisterImmediateOperands()
-
-    A.storedBytes = intToTwoBytes(immediate)
+    A.insert(immediate)
 
 def addi():
     [A, immediate] = getRegisterImmediateOperands()
@@ -142,8 +138,8 @@ def call():
     setPc(offset)
 
 def act():
-    offset = getSingleImmediateOperand()
     pass
+
 #-----------Memory Instructions using immediate offset-------------#
 def movl():
     [A, immediate] = getRegisterImmediateOperands()
@@ -159,7 +155,7 @@ def movs():
     memory[immediate+1] = A.storedBytes[1]
 
 
-#-----------Single Operand Instructions-----------------#
+#------------------Single Operand Instructions-----------------#
 def shl():
     A = getSingleRegisterOperand()
     x = A.intValue()
@@ -207,7 +203,7 @@ def pop():
     A = getSingleRegisterOperand()
     popStackToRegister(A)
 
-#---------------No Operand Instructions-----------------#
+#----------------No Operand Instructions-----------------#
 def return_():
     returnPcFromSc()
 
@@ -218,3 +214,28 @@ def end():
     pass
     
 
+
+#----------------fetching the operands-------------------#
+
+#returns 2 registers and updates PC
+
+def getRegisterRegisterOperands():
+    A = fetchRegisterFromPc()
+    B = fetchRegisterFromPc()
+    return [A, B]
+
+#returns 1 registers and 1 immediate value and updates PC
+def getRegisterImmediateOperands():
+    A = fetchRegisterFromPc()
+    mem = fetchImmediateFromPc()
+    return [A, mem]
+
+#returns 1 register and updates PC
+def getSingleRegisterOperand():
+    A = fetchRegisterFromPc()
+    return A
+
+#returns 1 immediate value and updates PC
+def getSingleImmediateOperand():
+    mem = fetchImmediateFromPc()
+    return mem
