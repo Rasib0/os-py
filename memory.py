@@ -5,6 +5,12 @@ addressSize = 16
 
 memory = bytearray(2**addressSize)
 
+#stack
+stack= [0]*50
+
+for i in range(50):
+    stack[i]  = Register()
+
 #General purpose registers
 R= [0]*16
 

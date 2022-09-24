@@ -7,7 +7,7 @@ from utils.systemOperations import memoryAtPc, pcIntValue, writeInMemory, update
 with open('p1-test.txt') as f:
     byteString = f.read().split()
 
-memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #Assuming dataRegister['counter'] holds the memory address which is currently 0
+memoryIndex = 0
 writeInMemory(byteString, memoryIndex)
 codeRegister['counter'].insert(memoryIndex)
 
@@ -30,6 +30,7 @@ def start():
             break
         execute(opcode)
         displayMemory()
+        print()
 
 start()
 
