@@ -3,4 +3,4 @@ __pycache__/memory.cpython-310.pyc
 __pycache__/operation_dict.cpython-310.pyc
 __pycache__/operations.cpython-310.pyc
 utils/__pycache__/pc_utils.cpython-310.pyc
-tests
+tests/
