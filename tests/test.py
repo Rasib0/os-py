@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../OSproject')
 #testing subtraction using bytearray
 from Register import Register
 

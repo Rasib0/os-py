@@ -1,5 +1,8 @@
-from pc_operations import currPcImmediateValue, currPcRegister
+import sys
+sys.path.append('../OSproject')
+from utils.pc_utils import currPcImmediateValue, currPcRegister
 
+#return Operands
 def registerRegisterOperands():
     A = currPcRegister()
     B = currPcRegister()

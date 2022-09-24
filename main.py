@@ -1,14 +1,13 @@
 from memory import *
-from utils.pc_operations import setPc
-from utils.execution_operations import  decode, displayMemory, writeInMemory,  execute
+from utils.pc_utils import setPc
+from utils.execution_utils import  decode, displayMemory, writeInMemory,  execute
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:
     byteString = f.read().split()
 
-memoryIndex = 0
-writeInMemory(byteString, memoryIndex)
-setPc(memoryIndex)
+writeInMemory(byteString, 0)
+setPc(0)
 
 #the execution loop
 def start():

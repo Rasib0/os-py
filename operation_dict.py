@@ -1,6 +1,6 @@
-from functions import *
+from operations import *
 
-function_list = {
+operations_list = {
             16: mov,
             17: add,
             18: sub,

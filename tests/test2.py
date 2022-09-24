@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../OSproject')
 from utils.conversions import intToTwoBytes, twoBytesToHex, twoBytesToInt
 
 x = bytearray(2)

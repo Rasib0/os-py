@@ -1,6 +1,6 @@
 from memory import R
 from utils.conversions import intToTwoBytes
-from utils.register_operations import registerImmediateOperands, registerRegisterOperands
+from utils.register_utils import registerImmediateOperands, registerRegisterOperands
 
 #Register-register Instructions
 def mov():

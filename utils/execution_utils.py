@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../OSproject')
-from functionsDictionary import function_list
-from utils.pc_operations import memoryAtPc, updatePC
+from operation_dict import operations_list
+from utils.pc_utils import memoryAtPc, updatePC
 from memory import memory, codeRegister, stackRegister, dataRegister, R
 
 #writes in memory starting from location
@@ -27,12 +27,12 @@ def displayMemory():
     print(gString)
     print(sString)
 
-#calls the function for the opcode
 def decode():
     opcode = memoryAtPc()
     updatePC(1)
     return opcode
-    
+
+#calls the function for the opcode
 def execute(opcode: int):
-    function_list[opcode]()
+    operations_list[opcode]()
 
