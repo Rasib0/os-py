@@ -1,6 +1,9 @@
-from operations import *
+import sys
+sys.path.append('../OSproject')
+from InstructionSet.operations import *
 
-operations_list = {
+
+operatorsList = {
             16: mov,
             17: add,
             18: sub,

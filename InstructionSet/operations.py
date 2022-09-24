@@ -1,22 +1,24 @@
-from memory import memory, codeRegister
+import sys
+sys.path.append('../OSproject')
+from memory import memory
 from utils.conversions import intToTwoBytes
 from utils.counter_memory_utils import popStack, pushStack, returnPcFromSc
-from operands import registerImmediateOperands, registerRegisterOperands, singleOperands
+from InstructionSet.getOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleOperand
 
 #------------------Register-register Instructions-------------------#
 def mov():
-    [A, B] = registerRegisterOperands()
+    [A, B] = getRegisterRegisterOperands()
 
     A.storedBytes = B.storedBytes
 
 def add():
-    [A, B] = registerRegisterOperands()
+    [A, B] = getRegisterRegisterOperands()
 
     sum = A.intValue() + B.intValue()
     A.insert(sum) 
 
 def sub():
-    [A, B] = registerRegisterOperands()
+    [A, B] = getRegisterRegisterOperands()
 
     sum = A.intValue() - B.intValue()
     A.insert(sum)
@@ -24,32 +26,32 @@ def sub():
 #-----------------Register-Immediate Instructions-------------------#
 
 def movi():
-    [A, immediate] = registerImmediateOperands()
+    [A, immediate] = getRegisterImmediateOperands()
 
     A.storedBytes = intToTwoBytes(immediate)
 
 def addi():
-    [A, immediate] = registerImmediateOperands()
+    [A, immediate] = getRegisterImmediateOperands()
 
     sum = A.intValue() + immediate
     A.insert(sum) 
 
 def subi():
-    [A, immediate] = registerImmediateOperands()
+    [A, immediate] = getRegisterImmediateOperands()
 
     sum = A.intValue() - immediate
     A.insert(sum)
 
 #-----------Memory Instructions using immediate offset-------------#
 def movl():
-    [A, immediate] = registerImmediateOperands()
+    [A, immediate] = getRegisterImmediateOperands()
 
     A.storedBytes[0] = memory[immediate]
     A.storedBytes[1] = memory[immediate+1]
 
 
 def movs():
-    [A, immediate] = registerImmediateOperands()
+    [A, immediate] = getRegisterImmediateOperands()
 
     memory[immediate] = A.storedBytes[0]
     memory[immediate+1] = A.storedBytes[1]
@@ -57,38 +59,38 @@ def movs():
 
 #-----------Single Operand Instructions-----------------#
 def shl():
-    A = singleOperands()
+    A = getSingleOperand()
     A.insert(A.intValue() << 1)
 def shr():
-    A = singleOperands()
+    A = getSingleOperand()
     A.insert(A.intValue() >> 1)
 
 def rtl():
-    A = singleOperands()
+    A = getSingleOperand()
     x = A.intValue()
     A.insert(0x8000 | x >> 1 if x & 0x1 != 0 else x >> 1)
 
 def rtr():
-    A = singleOperands()
+    A = getSingleOperand()
     x = (0x1 | x << 1) & 0xFFFF if x & 0x8000 != 0 else (x << 1) & 0xFFFF
     A.insert(x)
 
 def inc():
-    A = singleOperands()
+    A = getSingleOperand()
     A.insert(A.intValue() + 1)
 
 
 def dec():
-    A = singleOperands()
+    A = getSingleOperand()
     A.insert(A.intValue() - 1)
 
 
 def push():
-    A = singleOperands()
+    A = getSingleOperand()
     pushStack(A)
 
 def pop():
-    A = singleOperands()
+    A = getSingleOperand()
     popStack(A)
 
 
@@ -102,3 +104,4 @@ def noop():
 def end():
     pass
     
+
