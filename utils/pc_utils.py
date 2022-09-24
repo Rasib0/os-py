@@ -25,7 +25,7 @@ def currPcRegister() -> Register:
     updatePC(1)
     return A
 
-#fetches the immediate value in memory currently and updates PC
+#fetches the 2 byte immediate value in memory currently and updates PC
 def currPcImmediateValue() -> int:
     temp = bytearray(2)
     temp[0]  = memoryAtPc()

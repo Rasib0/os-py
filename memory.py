@@ -15,10 +15,8 @@ R= [0]*32
 for i in range(32):
     R[i]  = Register()
 
-
 #naming the registers
 sRegister = R[16]
-
 
 codeRegister = {"base": R[17],
                "limit": R[18],
