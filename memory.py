@@ -10,22 +10,22 @@ stack= [0]*50
 for i in range(50):
     stack[i]  = Register()
 
-#General purpose registers
-R= [0]*16
+R= [0]*32
 
-for i in range(16):
+for i in range(32):
     R[i]  = Register()
 
-#Special purpose registers
-codeRegister = {"base": Register(),
-               "limit": Register(),
-               "counter": Register()}
+sRegister = R[16]
 
-stackRegister = {"base": Register(),
-               "limit": Register(),
-               "counter": Register()}
+codeRegister = {"base": R[17],
+               "limit": R[18],
+               "counter": R[19]}
 
-dataRegister = {"base": Register(),
-               "counter": Register()}
+stackRegister = {"base": R[20],
+               "limit": R[21],
+               "counter":R[22]}
 
-flagRegister = [False]*16
+dataRegister = {"base": R[23],
+               "counter": R[24]}
+
+flagRegister = R[25]
