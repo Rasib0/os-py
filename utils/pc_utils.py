@@ -11,7 +11,7 @@ def memoryAtPc():
 #returns the pc value as an int
 def pcIntValue():
     return codeRegister['counter'].intValue()
-
+#set the PC to the int value
 def setPc(value: int):
     codeRegister['counter'].insert(value)
     
