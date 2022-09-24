@@ -1,5 +1,5 @@
 from memory import *
-from utils.counter_utils import scIntValue, setPc
+from utils.counter_utils import pcIntValue, scIntValue, setPc
 from utils.execution_functions import  decode, displayMemory, writeInMemory,  execute
 
 #fetch the byte stream 
@@ -14,19 +14,20 @@ setPc(0)
 Running = True
 
 def start():
+    count = 0
     while(Running):
         opcode = decode()
-
+        print("Instruction Number", count)
+        count += 1
         if(opcode == 243): #break the execution loop at opcode for END
             print("END OF PROCESS.")
             break
-
-        #print(stack)
-        #print(scIntValue())
-        print("Opcode: ", opcode)
-        execute(opcode)
+        #print("PC Value: ", pcIntValue())
+        #print("SC Value: ", scIntValue())
+        #print("Opcode: ", opcode)
         #print(stack)
         displayMemory()
+        execute(opcode)
 
 start()
 

@@ -36,8 +36,8 @@ def currScImmediateValue() -> int: #fetches the 2 byte immediate value in stack 
 
 
 def popStack(R: Register) -> int:
-    R.storedBytes[1] = stack[scIntValue()-1]
     R.storedBytes[0] = stack[scIntValue()-2]
+    R.storedBytes[1] = stack[scIntValue()-1]
     stack[scIntValue()-1] = 0
     stack[scIntValue()-2] = 0
     updateSc(-2)
@@ -48,8 +48,9 @@ def pushStack(R: Register):
     updateSc(2)
 
 def returnPcFromSc(): #sets PC to the value of stack at SC
-    temp = twoBytesToInt(bytearray([stack[scIntValue()-1],
-                                    stack[scIntValue()-2]]))
+    temp = twoBytesToInt(bytearray([stack[scIntValue()-2],
+                                    stack[scIntValue()-1]]))
     updateSc(-2)
+    print("Changing PC to", temp)
     setPc(temp)
 

@@ -20,7 +20,7 @@ operations_list = {
             77: push,
             78: pop,
             241:return_,
-            243:noop,
-            244:end
+            242:noop,
+            243:end
             }
 
