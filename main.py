@@ -17,8 +17,7 @@ def start():
         if(opcode == 243): #break the execution loop at opcode for END
             print("END OF PROCESS.")
             break
-        #the instruction is to more memory at offset 20 to R3
-
+        
         print("Opcode: ", opcode)
         execute(opcode)
         displayMemory()
