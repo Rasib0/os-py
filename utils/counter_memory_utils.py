@@ -47,7 +47,7 @@ def pushStack(R: Register):
     stack[scIntValue()+1] = R.storedBytes[1]
     updateSc(2)
 
-def returnPcFromSc():
+def returnPcFromSc(): #sets PC to the value of stack at SC
     temp = twoBytesToInt(bytearray([stack[scIntValue()-1],
                                     stack[scIntValue()-2]]))
     updateSc(-2)
