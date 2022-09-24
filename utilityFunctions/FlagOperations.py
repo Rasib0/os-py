@@ -1,4 +1,5 @@
 import sys
+from xmlrpc.client import boolean
 sys.path.append('../OSproject')
 from Memory import flagRegister
 
@@ -39,4 +40,18 @@ def clearSF():
 
 def clearOF():
     flagRegister.insert(flagRegister.intValue() & 0xFFF7)
+
+
+def ArithmeticLogicalFlagTest(sum: int, num1: int, num2: int):
+    if(sum == 0): setZF() #when the results is 0
+    if(sum > 0x8000): setSF() #when the most significant bit is 1
+    if((num1^sum)&(num2^sum)&0x8000): setOF() #when sign of both inputs is different from the sign of the result
+
+def shiftRotateFlagTest(before: int, after: int): 
+    if(after == 0): setZF()
+    if(before > 0x8000): setCF()
+    if(after > 0x8000): setSF()
+    pass
+
+
 

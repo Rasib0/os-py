@@ -6,13 +6,10 @@ def twoBytesToHex(input: bytearray) -> str: #input: bytearray size 2 , output: h
     lower = lower[2:len(lower)]
     upper = hex(input[0])
     upper = upper[2:len(upper)]
-
     if(len(lower)==1):
         lower = '0' + lower
-
     if(len(upper)==1):
         upper = '0' + upper
-        
     return  upper + lower
 
 

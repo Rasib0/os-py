@@ -3,54 +3,55 @@ sys.path.append('../OSproject')
 from Register import Register
 from utilityFunctions.baseConversions import twoBytesToInt
 from utilityFunctions.genericCounterOperations import *
-from Memory  import R
+from Memory import R
 
 
 #-----------fetching register and immediate values from memory at PC and updating PC ------------#
 
-def currPcRegister() -> Register: #fetches the register in memory currently and updates Pc
+def fetchRegisterFromPc() -> Register: #fetches the register in memory currently and updates Pc
     A = R[memoryAtPc()]
-    updatePc()
+    incrementPc()
     return A
 
-def currPcImmediateValue() -> int: #fetches the 2 byte immediate value in memory currently and updates Pc
+def fetchImmediateFromPc() -> int: #fetches the 2 byte immediate value in memory currently and updates Pc
     temp = bytearray(2)
     temp[0]  = memoryAtPc()
-    updatePc()
+    incrementPc()
     temp[1] =  memoryAtPc()
     mem = twoBytesToInt(temp)
-    updatePc()
+    incrementPc()
     return mem
 
-def currScImmediateValue() -> int: #fetches the 2 byte immediate value in stack currently and updates SC
+def fetchImmediateFromSc() -> int: #fetches the 2 byte immediate value in stack currently and updates SC
     temp = bytearray(2)
     temp[0]  = memoryAtSc()
-    updateSc()
+    incrementSc()
     temp[1] =  memoryAtSc()
     mem = twoBytesToInt(temp)
-    updateSc()
+    incrementSc()
     return mem
-
+    
 
 #-----------fetching counter and immediate values from stack at SC and updating SC ------------#
 
-
-def popStack(R: Register) -> int:
+def popStackToRegister(R: Register) -> int:
     R.storedBytes[0] = stack[scIntValue()-2]
     R.storedBytes[1] = stack[scIntValue()-1]
     stack[scIntValue()-1] = 0
     stack[scIntValue()-2] = 0
-    updateSc(-2)
+    incrementSc(-2)
 
-def pushStack(R: Register):
+def pushRegisterToStack(R: Register):
     stack[scIntValue()] = R.storedBytes[0]
     stack[scIntValue()+1] = R.storedBytes[1]
-    updateSc(2)
+    incrementSc(2)
+
+def pushPcToSc():
+    stack[scIntValue()] = R[19].storedBytes[0]
+    stack[scIntValue()+1] = R[19].storedBytes[1]
 
 def returnPcFromSc(): #sets PC to the value of stack at SC
     temp = twoBytesToInt(bytearray([stack[scIntValue()-2],
                                     stack[scIntValue()-1]]))
-    updateSc(-2)
-    print("Changing PC to", temp)
+    incrementSc(-2)
     setPc(temp)
-

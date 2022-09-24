@@ -13,7 +13,7 @@ def pcIntValue(): #returns the pc value as an int
 def setPc(value: int): #set the PC to the int value
     codeRegister['counter'].insert(value)
     
-def updatePc(by_index: int = 1): #updates PC by the index value
+def incrementPc(by_index: int = 1): #updates PC by the index value
     codeRegister['counter'].insert(pcIntValue() + by_index)
 
 
@@ -28,7 +28,7 @@ def scIntValue():
 def setSc(value: int):
     stackRegister['counter'].insert(value)
     
-def updateSc(by_index: int = 1): #updates SC by the index value
+def incrementSc(by_index: int = 1): #updates SC by the index value
     stackRegister['counter'].insert(scIntValue() + by_index)
 
 

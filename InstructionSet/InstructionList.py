@@ -4,14 +4,32 @@ from InstructionSet.InstructionCode import *
 
 
 InstructionList = {
+        # Register-register Instructions
             16: mov,
             17: add,
             18: sub,
-            #19:	mul,
-            #20:	div,
+            19:	mul,
+            20:	div,
+            21: and_,
+            22: or_,
+
+        # Register-Immediate Instructions
             30: movi,
             31: addi,
             32: subi,
+            33: muli,
+            34: divi,
+            35: andi,
+            36: ori,
+            37: bz,
+            38: bnz,
+            39: bc,
+            40: bs,
+            41: jmp,
+            42: call,
+            43: act,
+
+        # Memory Instructions
             51: movl,
             52: movs,
             71: shl,

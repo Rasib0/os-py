@@ -1,13 +1,13 @@
 import sys
 sys.path.append('../OSproject')
 from InstructionSet.InstructionList import InstructionList
-from utilityFunctions.genericCounterOperations import memoryAtPc, updatePc
+from utilityFunctions.genericCounterOperations import memoryAtPc, incrementPc
 from Memory import memory, R, flagRegister
 from utilityFunctions.FlagOperations import CF, ZF, SF, OF
 
 def decode(): #decode the opcode
     opcode = memoryAtPc()
-    updatePc()
+    incrementPc()
     return opcode
 
 def execute(opcode: int): #calls the function for the opcode
