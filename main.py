@@ -26,7 +26,6 @@ def start():
         print("Opcode: ", opcode)
         execute(opcode)
         #print(stack)
-        print(scIntValue())
         displayMemory()
 
 start()
