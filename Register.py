@@ -1,10 +1,9 @@
 from utils.conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
 
 class Register:
-    storedBytes = bytearray(2)
-
     def __init__(self):
         self.storedBytes = bytearray(2)
+
 
     def insert(self, value: int):
         self.storedBytes = intToTwoBytes(value)
@@ -18,5 +17,7 @@ class Register:
     def binary(self):
         return bin(self.intValue())
     
+
+
     
 

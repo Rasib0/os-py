@@ -6,5 +6,8 @@ function_list = {
             18: sub,
             #19:	mul,
             #20:	div,
+            30: movi,
+            31: addi,
+            32: subi
             }
 

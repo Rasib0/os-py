@@ -11,25 +11,26 @@ memoryIndex = twoBytesToInt(dataRegister['counter'].storedBytes)  #Assuming data
 writeInMemory(byteString, memoryIndex)
 codeRegister['counter'].insert(memoryIndex)
 
-
 #calls the function for the opcode
-def decodeAndExecute(opcode: int):
+def decode():
+    opcode = memoryAtPc()
+    updatePC(1)
+    return opcode
+
+def execute(opcode: int):
     function_list[opcode]()
 
 
 #the execution loop
 def start():
     while(True):
-        opcode = memoryAtPc()
-
+        opcode = decode()
         if(opcode == 243): #break the execution loop at opcode for END
+            print("END OF PROCESS.")
             break
-        print("Opcode: ", opcode)
-
-        updatePC(1) #this should be in decode
-
-        decodeAndExecute(opcode)
+        execute(opcode)
         displayMemory()
+
 start()
 
 

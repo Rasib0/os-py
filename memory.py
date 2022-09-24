@@ -6,7 +6,10 @@ addressSize = 16
 memory = bytearray(2**addressSize)
 
 #General purpose registers
-R= [Register()]*16
+R= [0]*16
+
+for i in range(16):
+    R[i]  = Register()
 
 #Special purpose registers
 codeRegister = {"base": Register(),

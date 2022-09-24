@@ -1,7 +1,7 @@
 from Register import Register
 from memory import R
 from utils.conversions import twoBytesToInt, intToTwoBytes
-from utils.systemOperations import memoryAtPc, updatePC
+from utils.systemOperations import memoryAtPc, pcIntValue, updatePC
 
 #Register-register Instructions
 def mov():
@@ -21,7 +21,7 @@ def sub():
 #Register-Immediate Instructions
 def movi():
     [A, immediate] = registerImmediateOperands()
-    A.storedBytes = immediate
+    A.storedBytes = intToTwoBytes(immediate)
 
 def addi():
     [A, immediate] = registerImmediateOperands()
