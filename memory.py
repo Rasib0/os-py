@@ -27,7 +27,6 @@ stackRegister = {"base": Register(),
                "counter": Register()}
 
 dataRegister = {"base": Register(),
-               "limit": Register(),
                "counter": Register()}
 
 flagRegister = Register()
