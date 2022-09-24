@@ -1,9 +1,9 @@
 import sys
 sys.path.append('../OSproject')
 from Register import Register
-from utils.conversions import twoBytesToInt
-from utils.counter_utils import *
-from memory  import R
+from utilityFunctions.conversions import twoBytesToInt
+from utilityFunctions.genericCounterOperations import *
+from Memory  import R
 
 
 #-----------fetching register and immediate values from memory at PC and updating PC ------------#

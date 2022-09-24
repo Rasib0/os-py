@@ -1,9 +1,9 @@
 import sys
 sys.path.append('../OSproject')
-from InstructionSet.operatorsList import operatorsList
-from utils.counter_utils import memoryAtPc, updatePc
-from memory import memory, R, flagRegister
-from utils.flag_utils import CF, ZF, SF, OF
+from InstructionSet.InstructionList import InstructionList
+from utilityFunctions.genericCounterOperations import memoryAtPc, updatePc
+from Memory import memory, R, flagRegister
+from utilityFunctions.FlagOperations import CF, ZF, SF, OF
 
 def decode(): #decode the opcode
     opcode = memoryAtPc()
@@ -11,7 +11,7 @@ def decode(): #decode the opcode
     return opcode
 
 def execute(opcode: int): #calls the function for the opcode
-    operatorsList[opcode]()
+    InstructionList[opcode]()
 
 def writeInMemory(contents: list, location: int): #writes in memory starting from location
     for i in range(len(contents)):

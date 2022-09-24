@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../OSproject')
-from memory import flagRegister
+from Memory import flagRegister
 
 def checkBit(num: int, position: int) -> int:
    return (num >> position) & 1

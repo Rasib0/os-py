@@ -1,9 +1,9 @@
 import sys
 sys.path.append('../OSproject')
-from InstructionSet.operations import *
+from InstructionSet.InstructionCode import *
 
 
-operatorsList = {
+InstructionList = {
             16: mov,
             17: add,
             18: sub,

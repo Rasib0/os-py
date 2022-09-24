@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../OSproject')
-from memory import memory, stack, codeRegister, stackRegister
+from Memory import memory, stack, codeRegister, stackRegister
 
 #----------- PC and memory utility ------------#
 

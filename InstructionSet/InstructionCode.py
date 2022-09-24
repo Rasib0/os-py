@@ -1,9 +1,9 @@
 import sys
 sys.path.append('../OSproject')
-from memory import memory
-from utils.conversions import intToTwoBytes
-from utils.counter_memory_utils import popStack, pushStack, returnPcFromSc
-from InstructionSet.getOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleOperand
+from Memory import memory
+from utilityFunctions.conversions import intToTwoBytes
+from utilityFunctions.counterMemoryOperations import popStack, pushStack, returnPcFromSc
+from InstructionSet.getInstructionOperands import getRegisterImmediateOperands, getRegisterRegisterOperands, getSingleOperand
 
 #------------------Register-register Instructions-------------------#
 def mov():

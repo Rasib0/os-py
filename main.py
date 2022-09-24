@@ -1,6 +1,6 @@
-from memory import *
-from utils.counter_utils import pcIntValue, scIntValue, setPc
-from execution_functions import  decode, displayMemory, writeInMemory,  execute
+from Memory import *
+from utilityFunctions.genericCounterOperations import pcIntValue, scIntValue, setPc
+from FetchExecuteCycleFunctions import  decode, displayMemory, writeInMemory,  execute
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:

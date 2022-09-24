@@ -1,5 +1,5 @@
 #return Operands register
-from utils.counter_memory_utils import currPcImmediateValue, currPcRegister
+from utilityFunctions.counterMemoryOperations import currPcImmediateValue, currPcRegister
 
 #returns 2 registers and updates PC
 def getRegisterRegisterOperands():
