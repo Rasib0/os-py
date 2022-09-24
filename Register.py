@@ -4,7 +4,6 @@ class Register:
     def __init__(self):
         self.storedBytes = bytearray(2)
 
-
     def insert(self, value: int):
         self.storedBytes = intToTwoBytes(value)
 

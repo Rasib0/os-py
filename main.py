@@ -1,7 +1,7 @@
 from memory import *
 from utils.conversions import twoBytesToInt
 from functionsDictionary import function_list
-from utils.systemOperations import memoryAtPc, writeInMemory, updatePC
+from utils.systemOperations import memoryAtPc, pcIntValue, writeInMemory, updatePC
 
 #fetch the byte stream 
 with open('p1-test.txt') as f:
@@ -26,7 +26,7 @@ def start():
     while(True):
         opcode = decode()
         if(opcode == 243): #break the execution loop at opcode for END
-            print("END OF PROCESS.")
+            print("END OF PROCESS. CURRENT PC: ", pcIntValue())
             break
         execute(opcode)
         displayMemory()
