@@ -12,7 +12,7 @@ def fetchRegister() -> Register: #fetches the register in memory currently and u
     register_number =memory[pc.getInt()]
 
     if(register_number > 15 and register_number < 32):
-        error = "Error: Cannot move to special purpose register R[" +str(register_number-16) +"]"
+        error = "Error: Cannot change to special purpose register R[" +str(register_number-16) +"]"
         return [zeroRegister, error] #register unchanged because error 
 
     elif(register_number >= 32):
@@ -31,5 +31,12 @@ def fetchImmediate(): #fetches the 2 byte immediate value in memory currently an
     temp[1] =  memory[pc.getInt()]
     immediate = twoBytesToInt(temp)
     pc.inc()
-    return [immediate, error]
+    return [immediate]
 
+def fetchTwoRegisters():
+    error = False
+    [R1, errorInR1] = fetchRegister()
+    [R2, errorInR2] = fetchRegister()
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    return[R1, R2, errorInR1]

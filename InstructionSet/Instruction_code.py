@@ -14,13 +14,13 @@ from Storage.Memory import memory, pc
 #       return error (or interrupt)
 
 def mov():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         R1.storedBytes = R2.storedBytes
     return error
 
 def add():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() + R2.getInt()
         sum = sum & 0xFFFF
@@ -29,7 +29,7 @@ def add():
     return error
 
 def sub():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() - R2.getInt()
         sum = sum & 0xFFFF
@@ -38,7 +38,7 @@ def sub():
     return error
 
 def mul():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() * R2.getInt()
         sum = sum & 0xFFFF
@@ -47,7 +47,7 @@ def mul():
     return error
 
 def div():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() / R2.getInt()
         sum = sum & 0xFFFF
@@ -56,7 +56,7 @@ def div():
     return error
 
 def and_():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() & R2.getInt()
         sum = sum & 0xFFFF
@@ -65,7 +65,7 @@ def and_():
     return error
 
 def or_():
-    [R1, R2, error] = fetchRegisterRegisterOperands()
+    [R1, R2, error] = fetchTwoRegisters()
     if(not error):
         sum = R1.getInt() | R2.getInt()
         sum = sum & 0xFFFF
@@ -76,13 +76,13 @@ def or_():
 #------------------Register-Immediate Instructions------------------#
 
 def movi():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         R1.setInt(immediate)
     return error
 
 def addi():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() + immediate
         sum = sum & 0xFFFF
@@ -91,7 +91,7 @@ def addi():
     return error
 
 def subi():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
@@ -100,7 +100,7 @@ def subi():
     return error
 
 def muli():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
@@ -110,7 +110,7 @@ def muli():
 
 
 def divi():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
@@ -119,7 +119,7 @@ def divi():
     return error
 
 def andi():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
@@ -128,7 +128,7 @@ def andi():
     return error
 
 def ori():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     if(not error):
         sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
@@ -138,37 +138,37 @@ def ori():
 
 def bz():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     if(ZF() == 1): pc.setInt(offset)
     return error
 
 def bnz():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     if(ZF() == 0): pc.setInt(offset)
     return error
 
 def bc():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     if(CF() == 1): pc.setInt(offset)
     return error
 
 def bs():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     if(SF() == 1): pc.setInt(offset)
     return error
 
 def jmp():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     pc.setInt(offset)
     return error
 
 def call():
     error = False
-    offset = fetchSingleImmediateOperand()
+    [offset] = fetchImmediate()
     if(not error):
         pushStack(pc.getInt())
         pc.setInt(offset)
@@ -183,14 +183,14 @@ def act():
 #-----------Memory Instructions using immediate offset-------------#
 
 def movl():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     R1.storedBytes[0] = memory[immediate]
     R1.storedBytes[1] = memory[immediate+1]
     return error
 
 
 def movs():
-    [R1, immediate, error] = fetchRegisterImmediateOperands()
+    [R1, error, immediate] = fetchRegister() + fetchImmediate()
     memory[immediate] = R1.storedBytes[0]
     memory[immediate+1] = R1.storedBytes[1]
     return error
@@ -199,7 +199,7 @@ def movs():
 #------------------Single Operand Instructions-----------------#
 
 def shl():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
         result = x << 1
@@ -208,7 +208,7 @@ def shl():
     return error
 
 def shr():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
         result = x >> 1
@@ -217,7 +217,7 @@ def shr():
     return error
 
 def rtl():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
         result = 0x8000 | x >> 1 if x & 0x1 != 0 else x >> 1
@@ -226,7 +226,7 @@ def rtl():
     return error
 
 def rtr():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
         result = (0x1 | x << 1) & 0xFFFF if x & 0x8000 != 0 else (x << 1) & 0xFFFF
@@ -235,25 +235,25 @@ def rtr():
     return error
 
 def inc():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         R1.inc()
     return error
 
 def dec():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         R1.dec()
     return error
 
 def push():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         error = pushStack(R1.getInt())
     return error
 
 def pop():
-    [R1, error] = fetchSingleRegisterOperand()
+    [R1, error] = fetchRegister()
     if (not error):
         [value, error] = popStack()
         if(not error):
@@ -275,39 +275,3 @@ def noop():
 def end():
     error = "End interrupt."
     return error
-
-
-# Description: Fetching the Operands and the error using functions from memory_controller.py
-
-def fetchRegisterRegisterOperands(): #returns 2 registers and updates PC
-    error = False
-
-    [R1, errorA] = fetchRegister()
-    [R2, errorB] = fetchRegister()
-    if(errorA != 0):
-        error = errorA + ' (Error at first operand)'
-    elif(errorB != 0):
-        error = errorB + ' (Error at first operand)'
-    return [R1, R2, error]
-
-def fetchRegisterImmediateOperands(): #returns 1 registers and 1 immediate value and updates PC
-
-    error = False
-    [R1, errorA] = fetchRegister()
-    [mem, errorB] = fetchImmediate()
-
-    if(errorA != 0):
-        error = errorA + ' (Error at first operand)'
-    elif(errorB != 0):
-        error = errorB + ' (Error at second operand)'
-
-    return [R1, mem, error]
-
-def fetchSingleRegisterOperand(): #returns 1 register and updates PC
-    [R1, error] = fetchRegister()
-    return [R1, error]
-
-def fetchSingleImmediateOperand(): #returns 1 immediate value and updates PC
-    [mem, error] = fetchImmediate()
-    return [mem, error]
-
