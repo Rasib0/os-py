@@ -1,258 +1,281 @@
-from ftplib import error_perm
 import sys
 sys.path.append('../OSproject')
-from utilityFunctions.flag_operations import *
-from utilityFunctions.counter_operations import popStackToRegister, pushRegisterToStack, returnPcFromSc, pushPcToSc, fetchImmediateFromPc, fetchRegisterFromPc, setPc
-from Memory import memory
 
-#------------------Register-register Instructions-------------------#
+from Register import Register
+from utilityFunctions.base_conversions import twoBytesToInt
+from utilityFunctions.flag_operations import *
+from Memory import R, memory, pc, sc, zeroRegister, stack
+
+# This file is divided into 3 sections
+
+# Section 1: instruction code which all follow the same format: 
+
+#       set error to false
+#       Deconstructing the operands and error (output from section 2)
+#       if there is no error: do something and perform flag test
+#       return error (or interrupt)
+
+# Section 2: three functions that returns [operands..., error]
+
+# Section 3: the implementation of memory/PC and stack/SC operations which fetch register/immediate value from memory/stack and update PC/SC
+
+
+# ------------------------ section 1 ------------------------ #
+#Register-register Instructions
 
 def mov():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        A.storedBytes = B.storedBytes
+        R1.storedBytes = R2.storedBytes
     return error
 
 def add():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() + B.getInt()
+        sum = R1.getInt() + R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum) 
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum) 
     return error
 
 def sub():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() - B.getInt()
+        sum = R1.getInt() - R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum)
     return error
 
 def mul():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() * B.getInt()
+        sum = R1.getInt() * R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum)
     return error
 
 def div():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() / B.getInt()
+        sum = R1.getInt() / R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum)
     return error
 
 def and_():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() & B.getInt()
+        sum = R1.getInt() & R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum)
-    return error_perm
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum)
+    return error
 
 def or_():
-    [A, B, error] = getRegisterRegisterOperands()
+    [R1, R2, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.getInt() | B.getInt()
+        sum = R1.getInt() | R2.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), R2.getInt())
+        R1.setInt(sum)
     return error
 
 #------------------Register-Immediate Instructions------------------#
 
 def movi():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        A.setInt(immediate)
+        R1.setInt(immediate)
     return error
 
 def addi():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() + immediate
+        sum = R1.getInt() + immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum) 
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum) 
     return error
 
 def subi():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() - immediate
+        sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum)
     return error
 
 def muli():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() - immediate
+        sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum)
     return error
 
 
 def divi():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() - immediate
+        sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum)
     return error
 
 def andi():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() - immediate
+        sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum)
     return error
 
 def ori():
-    [A, immediate, error] = getRegisterImmediateOperands()
+    [R1, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.getInt() - immediate
+        sum = R1.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
-        A.setInt(sum)
+        ArithmeticLogicalFlagTest(sum, R1.getInt(), immediate)
+        R1.setInt(sum)
     return error
 
 def bz():
     error = False
     offset = getSingleImmediateOperand()
-    if(ZF() == 1): setPc(offset)
+    if(ZF() == 1): pc.setInt(offset)
     return error
 
 def bnz():
     error = False
     offset = getSingleImmediateOperand()
-    if(ZF() == 0): setPc(offset)
+    if(ZF() == 0): pc.setInt(offset)
     return error
 
 def bc():
     error = False
     offset = getSingleImmediateOperand()
-    if(CF() == 1): setPc(offset)
+    if(CF() == 1): pc.setInt(offset)
     return error
 
 def bs():
     error = False
     offset = getSingleImmediateOperand()
-    if(SF() == 1): setPc(offset)
+    if(SF() == 1): pc.setInt(offset)
     return error
 
 def jmp():
     error = False
     offset = getSingleImmediateOperand()
-    setPc(offset)
+    pc.setInt(offset)
     return error
 
 def call():
     error = False
     offset = getSingleImmediateOperand()
-    pushPcToSc()
-    setPc(offset)
+    if(not error):
+        push(pc.getInt())
+        pc.setInt(offset)
     return error
 
 def act():
     error = False
+    if(not error):
+        print("Action is currently not Defined.")
     return error
 
 #-----------Memory Instructions using immediate offset-------------#
 
 def movl():
-    [A, immediate, error] = getRegisterImmediateOperands()
-    A.storedBytes[0] = memory[immediate]
-    A.storedBytes[1] = memory[immediate+1]
+    [R1, immediate, error] = getRegisterImmediateOperands()
+    R1.storedBytes[0] = memory[immediate]
+    R1.storedBytes[1] = memory[immediate+1]
     return error
 
 
 def movs():
-    [A, immediate, error] = getRegisterImmediateOperands()
-    memory[immediate] = A.storedBytes[0]
-    memory[immediate+1] = A.storedBytes[1]
+    [R1, immediate, error] = getRegisterImmediateOperands()
+    memory[immediate] = R1.storedBytes[0]
+    memory[immediate+1] = R1.storedBytes[1]
     return error
 
 
 #------------------Single Operand Instructions-----------------#
 
 def shl():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.getInt()
+        x = R1.getInt()
         result = x << 1
-        A.setInt(result)
+        R1.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def shr():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.getInt()
+        x = R1.getInt()
         result = x >> 1
-        A.setInt(result)
+        R1.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def rtl():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.getInt()
+        x = R1.getInt()
         result = 0x8000 | x >> 1 if x & 0x1 != 0 else x >> 1
-        A.setInt(result)
+        R1.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def rtr():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.getInt()
+        x = R1.getInt()
         result = (0x1 | x << 1) & 0xFFFF if x & 0x8000 != 0 else (x << 1) & 0xFFFF
-        A.setInt(result)
+        R1.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def inc():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        A.setInt(A.getInt() + 1)
+        R1.inc()
     return error
 
 def dec():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        A.setInt(A.getInt() - 1)
+        R1.dec()
     return error
 
 def push():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        pushRegisterToStack(A)
+        R1.setInt()
     return error
 
 def pop():
-    [A, error] = getSingleRegisterOperand()
+    [R1, error] = getSingleRegisterOperand()
     if (not error):
-        popStackToRegister(A)
+        [value, error] = pop()
+        R1.setInt(value)
     return error
 
 #----------------No Operand Instructions-----------------#
 
 def return_():
-    error = returnPcFromSc()
+    [value, error] = pop()
+    if(not error):
+        pc.setInt(value)
+    #popPcFromStack()
     return error
 
 def noop():
@@ -264,41 +287,103 @@ def end():
     return error
 
 
-#----------------Fetching the Operands-------------------#
+# ------------------------ section 2 ------------------------ #
 
-#returns 2 registers and updates PC
+# Description: Fetching the Operands and the error using functions from sections 3
 
-def getRegisterRegisterOperands():
+
+def getRegisterRegisterOperands(): #returns 2 registers and updates PC
     error = False
 
-    [A, errorA] = fetchRegisterFromPc()
-    [B, errorB] = fetchRegisterFromPc()
+    [R1, errorA] = fetchRegister()
+    [R2, errorB] = fetchRegister()
     if(errorA != 0):
         error = errorA + ' (Error at first operand)'
     elif(errorB != 0):
         error = errorB + ' (Error at first operand)'
-    return [A, B, error]
+    return [R1, R2, error]
 
-#returns 1 registers and 1 immediate value and updates PC
-def getRegisterImmediateOperands():
+def getRegisterImmediateOperands(): #returns 1 registers and 1 immediate value and updates PC
+
     error = False
-    [A, errorA] = fetchRegisterFromPc()
-    [mem, errorB] = fetchImmediateFromPc()
+    [R1, errorA] = fetchRegister()
+    [mem, errorB] = fetchImmediate()
 
     if(errorA != 0):
         error = errorA + ' (Error at first operand)'
     elif(errorB != 0):
         error = errorB + ' (Error at second operand)'
 
-    return [A, mem, error]
+    return [R1, mem, error]
 
-#returns 1 register and updates PC
-def getSingleRegisterOperand():
-    [A, error] = fetchRegisterFromPc()
-    return [A, error]
+def getSingleRegisterOperand(): #returns 1 register and updates PC
+    [R1, error] = fetchRegister()
+    return [R1, error]
 
-#returns 1 immediate value and updates PC
-def getSingleImmediateOperand():
-    [mem, error] = fetchImmediateFromPc()
+def getSingleImmediateOperand(): #returns 1 immediate value and updates PC
+    [mem, error] = fetchImmediate()
     return [mem, error]
 
+
+
+
+# PC/memory operations
+
+def fetchRegister() -> Register: #fetches the register in memory currently and updates Pc
+    error = False
+    register_number =memory[pc.getInt()]
+
+    if(register_number > 15 and register_number < 32):
+        error = "Error: Cannot move to special purpose register R[" +str(register_number-16) +"]"
+        return [zeroRegister, error] #register unchanged because error 
+
+    elif(register_number >= 32):
+        error = "Error: No such register R[" +str(register_number-16) +"]"
+        return [zeroRegister, error] #register unchanged because error
+
+    R1 = R[register_number]
+    pc.inc()
+    return [R1, error]
+
+def fetchImmediate(): #fetches the 2 byte immediate value in memory currently and updates PC
+    error = False
+    temp = bytearray(2)
+    temp[0]  = memory[pc.getInt()]
+    pc.inc()
+    temp[1] =  memory[pc.getInt()]
+    immediate = twoBytesToInt(temp)
+    pc.inc()
+    return [immediate, error]
+
+
+# stack operations 
+
+def pop(): #fetches the 2 byte immediate value in stack currently and updates SC
+    error = False
+    temp = bytearray(2)
+
+    if(sc < 2):
+        error = "Error: Stack underflow"
+        return [0, error]
+    temp[0]  = stack[sc.getInt()-2]
+    temp[1] =  stack[sc.getInt()-1]
+    stack[sc.getInt()-1] = 0
+    stack[sc.getInt()-2] = 0
+    sc.dec(2)
+    value = twoBytesToInt(temp)
+    return [value, error]
+   
+   
+def push(value: int):
+    error = False
+    temp = Register()
+    temp.setInt(value)
+
+    if(sc >= 50):
+        error = "Error: Stack overflow"
+        return error
+
+    stack[sc] = temp.storedBytes[0]
+    stack[sc+1] = temp.storedBytes[1]
+    sc.inc(2)
+    return error
