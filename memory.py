@@ -2,17 +2,21 @@ from Register import Register
 
 addressSize = 16
 
+#Setting up a memory with 64k bytes
 memory = bytearray(2**addressSize)
 
-#stack
+#Setting up a stack with 50 bytes
 stack= bytearray(50)
 
+
+#Setting up thirty-two 16 bit Register
 R= [0]*32
 
 for i in range(32):
     R[i]  = Register()
 
-#naming the registers
+
+#Giving the special purpose registers aliases for easy access
 sRegister = R[16]
 
 codeRegister = {"base": R[17],
