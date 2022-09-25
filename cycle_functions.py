@@ -1,7 +1,7 @@
 
 from InstructionSet.Instruction_list import InstructionList
-from Memory import memory, R, flagRegister, pc
-from controllers.flag_controller import CF, ZF, SF, OF
+from Storage.Memory import memory, R, flagRegister, pc
+from Storage.controllers.flag_controller import CF, ZF, SF, OF
 
 def writeInMemory(path: str, location: int): #writes in memory starting from location
     with open(path) as f:

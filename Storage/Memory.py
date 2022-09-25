@@ -1,4 +1,4 @@
-from Register import Register
+from Storage.Register import Register
 
 addressSize = 16
 

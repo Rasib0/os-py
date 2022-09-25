@@ -1,4 +1,4 @@
-from Memory import pc
+from Storage.Memory import pc
 from cycle_functions import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
