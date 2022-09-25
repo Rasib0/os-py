@@ -24,8 +24,6 @@ def execute(opcode: int): #calls the function for the opcode
     interrupt = InstructionList[opcode]()
     return interrupt
 
-
-
 def displayMemory(): #Display all the registers as a formated string
     gString = "General purpose registers:\n"
     sString = "Special purpose registers:\n"
