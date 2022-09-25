@@ -2,7 +2,7 @@ from Storage.Memory import pc
 from main_functions import  decode, displayMemory, writeInMemory,  execute
 
 startingIndex = 0
-writeInMemory('p1-test.txt', startingIndex) #write the byte stream in memory starting from startingIndex and sets pc to startingIndex
+writeInMemory('p1.txt', startingIndex) #write the byte stream in memory starting from startingIndex and sets pc to startingIndex
 
 #the execution loop
 def run():

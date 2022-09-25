@@ -7,7 +7,7 @@ from Storage.Memory import R, memory, pc, sc, zeroRegister, stack
 
 # PC/memory operations
 
-def fetchRegister() -> Register: #fetches the register in memory currently and updates Pc
+def fetchRegister(): #fetches the register in memory currently and updates Pc
     error = False
     register_number =memory[pc.getInt()]
 
@@ -26,17 +26,9 @@ def fetchRegister() -> Register: #fetches the register in memory currently and u
 def fetchImmediate(): #fetches the 2 byte immediate value in memory currently and updates PC
     error = False
     temp = bytearray(2)
-    temp[0]  = memory[pc.getInt()]
+    temp[0] = memory[pc.getInt()]
     pc.inc()
     temp[1] =  memory[pc.getInt()]
     immediate = twoBytesToInt(temp)
     pc.inc()
     return [immediate]
-
-def fetchTwoRegisters():
-    error = False
-    [R1, errorInR1] = fetchRegister()
-    [R2, errorInR2] = fetchRegister()
-    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
-    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
-    return[R1, R2, errorInR1]

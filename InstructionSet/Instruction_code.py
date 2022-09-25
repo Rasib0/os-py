@@ -14,13 +14,24 @@ from Storage.Memory import memory, pc
 #       return error (or interrupt)
 
 def mov():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         R1.storedBytes = R2.storedBytes
     return error
 
 def add():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+    
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() + R2.getInt()
         sum = sum & 0xFFFF
@@ -29,7 +40,12 @@ def add():
     return error
 
 def sub():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+    
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() - R2.getInt()
         sum = sum & 0xFFFF
@@ -38,7 +54,12 @@ def sub():
     return error
 
 def mul():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+    
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() * R2.getInt()
         sum = sum & 0xFFFF
@@ -47,7 +68,12 @@ def mul():
     return error
 
 def div():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+    
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() / R2.getInt()
         sum = sum & 0xFFFF
@@ -56,7 +82,12 @@ def div():
     return error
 
 def and_():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+        
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() & R2.getInt()
         sum = sum & 0xFFFF
@@ -65,7 +96,12 @@ def and_():
     return error
 
 def or_():
-    [R1, R2, error] = fetchTwoRegisters()
+    error = False
+    [R1, errorInR1, R2, errorInR2] = fetchRegister() + fetchRegister()
+
+    if(errorInR1): error = errorInR1 + ' (Error at first operand)'
+    elif(errorInR2): error = errorInR2 + ' (Error at second operand)'
+    
     if(not error):
         sum = R1.getInt() | R2.getInt()
         sum = sum & 0xFFFF
