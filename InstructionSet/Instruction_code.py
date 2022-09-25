@@ -11,7 +11,7 @@ from Architecture.Memory import memory, pc
 #       set error to false
 #       Deconstructing the operands and error from fetch operand functions
 #       if there is no error: do something and perform flag test
-#       return error (or interrupt)
+#       return error (or interrupt in the case of end() )
 
 def mov():
     error = False
