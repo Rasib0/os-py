@@ -1,8 +1,7 @@
-import sys
-sys.path.append('../OSproject')
+
 from InstructionSet.Instruction_list import InstructionList
 from Memory import memory, R, flagRegister, pc
-from utilityFunctions.flag_operations import CF, ZF, SF, OF
+from controllers.flag_controller import CF, ZF, SF, OF
 
 def writeInMemory(path: str, location: int): #writes in memory starting from location
     with open(path) as f:

@@ -1,9 +1,9 @@
-from Memory import *
+from Memory import pc
 from cycle_operations import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
 startingIndex = 0
-writeInMemory('p1.txt', startingIndex)
+writeInMemory('p1-test.txt', startingIndex)
 pc.setInt(startingIndex)
 
 #the execution loop
@@ -18,16 +18,11 @@ def start():
         if(Interrupt):  
             print(Interrupt)
             break;
-            
+        #print(stack)
         displayMemory()
         count += 1
         
 start()
-
-
-
-
-
 
 
 

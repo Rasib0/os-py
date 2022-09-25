@@ -1,5 +1,5 @@
 from tokenize import String
-from utilityFunctions.base_conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
+from base_conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
 
 class Register:
     def __init__(self):

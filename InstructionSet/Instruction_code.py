@@ -1,27 +1,20 @@
 import sys
 sys.path.append('../OSproject')
 
-from Register import Register
-from utilityFunctions.base_conversions import twoBytesToInt
-from utilityFunctions.flag_operations import *
-from Memory import R, memory, pc, sc, zeroRegister, stack
+from controllers.memory_controller import *
+from controllers.flag_controller import *
+from Memory import memory, pc
 
-# This file is divided into 3 sections
-
-# Section 1: instruction code which all follow the same format: 
+#Instruction code which all follow the same format: 
 
 #       set error to false
 #       Deconstructing the operands and error (output from section 2)
 #       if there is no error: do something and perform flag test
 #       return error (or interrupt)
 
-# Section 2: three functions that returns [operands..., error]
-
-# Section 3: the implementation of memory/PC and stack/SC operations which fetch register/immediate value from memory/stack and update PC/SC
+# At the bottom there are three functions that returns [operands..., error], using function from memory_controller which controls the memory and stack
 
 
-# ------------------------ section 1 ------------------------ #
-#Register-register Instructions
 
 def mov():
     [R1, R2, error] = getRegisterRegisterOperands()
@@ -180,7 +173,7 @@ def call():
     error = False
     offset = getSingleImmediateOperand()
     if(not error):
-        push(pc.getInt())
+        pushStack(pc.getInt())
         pc.setInt(offset)
     return error
 
@@ -259,23 +252,23 @@ def dec():
 def push():
     [R1, error] = getSingleRegisterOperand()
     if (not error):
-        R1.setInt()
+        error = pushStack(R1.getInt())
     return error
 
 def pop():
     [R1, error] = getSingleRegisterOperand()
     if (not error):
-        [value, error] = pop()
-        R1.setInt(value)
+        [value, error] = popStack()
+        if(not error):
+            R1.setInt(value)
     return error
 
 #----------------No Operand Instructions-----------------#
 
 def return_():
-    [value, error] = pop()
+    [value, error] = popStack()
     if(not error):
         pc.setInt(value)
-    #popPcFromStack()
     return error
 
 def noop():
@@ -324,66 +317,3 @@ def getSingleImmediateOperand(): #returns 1 immediate value and updates PC
     [mem, error] = fetchImmediate()
     return [mem, error]
 
-
-
-
-# PC/memory operations
-
-def fetchRegister() -> Register: #fetches the register in memory currently and updates Pc
-    error = False
-    register_number =memory[pc.getInt()]
-
-    if(register_number > 15 and register_number < 32):
-        error = "Error: Cannot move to special purpose register R[" +str(register_number-16) +"]"
-        return [zeroRegister, error] #register unchanged because error 
-
-    elif(register_number >= 32):
-        error = "Error: No such register R[" +str(register_number-16) +"]"
-        return [zeroRegister, error] #register unchanged because error
-
-    R1 = R[register_number]
-    pc.inc()
-    return [R1, error]
-
-def fetchImmediate(): #fetches the 2 byte immediate value in memory currently and updates PC
-    error = False
-    temp = bytearray(2)
-    temp[0]  = memory[pc.getInt()]
-    pc.inc()
-    temp[1] =  memory[pc.getInt()]
-    immediate = twoBytesToInt(temp)
-    pc.inc()
-    return [immediate, error]
-
-
-# stack operations 
-
-def pop(): #fetches the 2 byte immediate value in stack currently and updates SC
-    error = False
-    temp = bytearray(2)
-
-    if(sc < 2):
-        error = "Error: Stack underflow"
-        return [0, error]
-    temp[0]  = stack[sc.getInt()-2]
-    temp[1] =  stack[sc.getInt()-1]
-    stack[sc.getInt()-1] = 0
-    stack[sc.getInt()-2] = 0
-    sc.dec(2)
-    value = twoBytesToInt(temp)
-    return [value, error]
-   
-   
-def push(value: int):
-    error = False
-    temp = Register()
-    temp.setInt(value)
-
-    if(sc >= 50):
-        error = "Error: Stack overflow"
-        return error
-
-    stack[sc] = temp.storedBytes[0]
-    stack[sc+1] = temp.storedBytes[1]
-    sc.inc(2)
-    return error
