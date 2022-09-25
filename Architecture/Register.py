@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../OSproject')
 from utilities.base_conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
 
 class Register:
