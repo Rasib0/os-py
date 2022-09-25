@@ -1,10 +1,10 @@
 import sys
 sys.path.append('../OSproject')
 
-from Storage.controllers.memory_controller import *
-from Storage.controllers.flag_controller import *
-from Storage.controllers.stack_controller import *
-from Storage.Memory import memory, pc
+from Controllers.memory_controller import *
+from Controllers.flag_controller import *
+from Controllers.stack_controller import *
+from Architecture.Memory import memory, pc
 
 #Instruction code which all follow the same format: 
 

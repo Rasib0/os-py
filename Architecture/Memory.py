@@ -1,5 +1,6 @@
-from Storage.Register import Register
-
+import sys
+sys.path.append('../OSproject')
+from Architecture.Register import Register
 addressSize = 16
 
 #Setting up a memory with 64k bytes

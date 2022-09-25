@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../OSproject')
-from Storage.Memory import flagRegister
+from Architecture.Memory import flagRegister
 
 # 1) This file contains set, clear, get functions for carry, zero, sign and overflow flags
 # 2) It also has the Arithmetic, Logical, Shift tests for operations that affect the flag

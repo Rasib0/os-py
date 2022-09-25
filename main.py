@@ -1,4 +1,3 @@
-from Storage.Memory import pc
 from main_functions import  decode, displayMemory, writeInMemory,  execute
 
 startingIndex = 0
