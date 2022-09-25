@@ -19,29 +19,29 @@ def OF():
 
 #set flags
 def setCF():
-    flagRegister.insert(flagRegister.getInt() | 0x1)
+    flagRegister.setInt(flagRegister.getInt() | 0x1)
 
 def setZF():
-    flagRegister.insert(flagRegister.getInt() | 0x2)
+    flagRegister.setInt(flagRegister.getInt() | 0x2)
 
 def setSF():
-    flagRegister.insert(flagRegister.getInt() | 0x4)
+    flagRegister.setInt(flagRegister.getInt() | 0x4)
 
 def setOF():
-    flagRegister.insert(flagRegister.getInt() | 0x8)
+    flagRegister.setInt(flagRegister.getInt() | 0x8)
 
 #clear flags
 def clearCF():
-    flagRegister.insert(flagRegister.getInt() & 0xFFFE)
+    flagRegister.setInt(flagRegister.getInt() & 0xFFFE)
 
 def clearZF():
-    flagRegister.insert(flagRegister.getInt() & 0xFFFD)
+    flagRegister.setInt(flagRegister.getInt() & 0xFFFD)
 
 def clearSF():
-    flagRegister.insert(flagRegister.getInt() & 0xFFFB)
+    flagRegister.setInt(flagRegister.getInt() & 0xFFFB)
 
 def clearOF():
-    flagRegister.insert(flagRegister.getInt() & 0xFFF7)
+    flagRegister.setInt(flagRegister.getInt() & 0xFFF7)
 
 
 def ArithmeticLogicalFlagTest(sum: int, num1: int, num2: int):

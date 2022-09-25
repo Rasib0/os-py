@@ -1,13 +1,11 @@
 from Storage.Memory import pc
-from cycle_functions import  decode, displayMemory, writeInMemory,  execute
+from main_functions import  decode, displayMemory, writeInMemory,  execute
 
-#write the byte stream in memory starting from starting index
 startingIndex = 0
-writeInMemory('p1.txt', startingIndex)
-pc.setInt(startingIndex)
+writeInMemory('p1.txt', startingIndex) #write the byte stream in memory starting from startingIndex and sets pc to startingIndex
 
 #the execution loop
-def start():
+def run():
     count = 0
     while(True):
         print("Instruction Number", count)
@@ -22,7 +20,7 @@ def start():
         displayMemory()
         count += 1
         
-start()
+run()
 
 
 

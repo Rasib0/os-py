@@ -3,13 +3,16 @@ from InstructionSet.Instruction_list import InstructionList
 from Storage.Memory import memory, R, flagRegister, pc
 from Storage.controllers.flag_controller import CF, ZF, SF, OF
 
-def writeInMemory(path: str, location: int): #writes in memory starting from location
+def writeInMemory(path: str, location: int): #writes in memory starting from location and sets pc to location
     with open(path) as f:
         byteString = f.read().split()
     for i in range(len(byteString)):
         memory[location+i] = int(byteString[i])
+    pc.setInt(location)
 
-def decode(): #decode the opcode
+
+
+def decode(): #decode the opcode at the current PC and updates PC
     opcode = memory[pc.getInt()]
     pc.inc()
     print("Opcode: ", opcode)
