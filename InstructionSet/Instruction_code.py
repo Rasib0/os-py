@@ -9,7 +9,7 @@ from Storage.Memory import memory, pc
 #Instruction code which all follow the same format: 
 
 #       set error to false
-#       Deconstructing the operands and error from fetch operand functions (at the end of the file)
+#       Deconstructing the operands and error from fetch operand functions
 #       if there is no error: do something and perform flag test
 #       return error (or interrupt)
 
