@@ -1,5 +1,5 @@
 from Memory import pc
-from cycle_operations import  decode, displayMemory, writeInMemory,  execute
+from cycle_functions import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
 startingIndex = 0

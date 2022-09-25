@@ -3,12 +3,14 @@ sys.path.append('../OSproject')
 
 from controllers.memory_controller import *
 from controllers.flag_controller import *
+from controllers.stack_controller import *
+
 from Memory import memory, pc
 
 #Instruction code which all follow the same format: 
 
 #       set error to false
-#       Deconstructing the operands and error (output from fetch operand functions at the bottom of the file)
+#       Deconstructing the operands and error from fetch operand functions (at the end of the file)
 #       if there is no error: do something and perform flag test
 #       return error (or interrupt)
 
