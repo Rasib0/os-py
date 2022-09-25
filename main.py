@@ -1,11 +1,10 @@
 from Memory import *
-from utilityFunctions.counter_operations import setPc
-from cycle_functions import  decode, displayMemory, writeInMemory,  execute
+from cycle_operations import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
 startingIndex = 0
 writeInMemory('p1.txt', startingIndex)
-setPc(startingIndex)
+pc.setInt(startingIndex)
 
 #the execution loop
 def start():
@@ -22,7 +21,7 @@ def start():
             
         displayMemory()
         count += 1
-
+        
 start()
 
 

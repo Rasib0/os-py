@@ -17,7 +17,7 @@ for i in range(32):
 
 
 #Giving the special purpose registers aliases for easy access
-zeroRegister = R[16]
+zeroRegister: Register = R[16]
 
 codeRegister = {"base": R[17],
                "limit": R[18],
@@ -30,4 +30,7 @@ stackRegister = {"base": R[20],
 dataRegister = {"base": R[23],
                "counter": R[24]}
 
-flagRegister = R[25]
+flagRegister: Register = R[25]
+
+pc: Register = codeRegister['counter']
+sc: Register = stackRegister['counter']

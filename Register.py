@@ -13,6 +13,16 @@ class Register:
     def getInt(self) -> int:
         return twoBytesToInt(self.storedBytes)
 
+
+#increase and decrease value by a number
+    def inc(self, by: int = 1):
+        x = (self.getInt()+by) & 0xFFFF
+        self.setInt(x)
+
+    def dec(self, by: int = 1):
+        x = (self.getInt()-by) & 0xFFFF
+        self.setInt(x)
+
 # -----functions for displaying the byte as a hexadecimal or binary -----#
     
     def getHex(self) -> str:
