@@ -1,21 +1,31 @@
+import string
 import sys
 sys.path.append('../OSproject')
-from InstructionSet.InstructionList import InstructionList
-from utilityFunctions.genericCounterOperations import memoryAtPc, incrementPc
+from InstructionSet.Instruction_list import InstructionList
+from utilityFunctions.counter_operations import incPc, pc
 from Memory import memory, R, flagRegister
-from utilityFunctions.FlagOperations import CF, ZF, SF, OF
+from utilityFunctions.flag_operations import CF, ZF, SF, OF
+
+
+
+def fetch():
+    pass
 
 def decode(): #decode the opcode
-    opcode = memoryAtPc()
-    incrementPc()
+    opcode = memory[pc()]
+    incPc()
+    print("Opcode: ", opcode)
     return opcode
 
 def execute(opcode: int): #calls the function for the opcode
-    InstructionList[opcode]()
+    error = InstructionList[opcode]()
+    return error
 
-def writeInMemory(contents: list, location: int): #writes in memory starting from location
-    for i in range(len(contents)):
-        memory[location+i] = int(contents[i])
+def writeInMemory(path: string, location: int): #writes in memory starting from location
+    with open('p1.txt') as f:
+        byteString = f.read().split()
+    for i in range(len(byteString)):
+        memory[location+i] = int(byteString[i])
 
 def displayMemory(): #Display all the registers as a formated string
     gString = "General purpose registers:\n"

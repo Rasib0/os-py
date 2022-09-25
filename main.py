@@ -1,36 +1,27 @@
 from Memory import *
-from utilityFunctions.genericCounterOperations import pcIntValue, scIntValue, setPc
+from utilityFunctions.counter_operations import setPc
 from FetchExecuteCycleFunctions import  decode, displayMemory, writeInMemory,  execute
 
-#fetch the byte stream 
-with open('p1.txt') as f:
-    byteString = f.read().split()
-
-writeInMemory(byteString, 0)
-setPc(0)
+#write the byte stream in memory starting from starting index
+startingIndex = 0
+writeInMemory('p1.txt', startingIndex)
+setPc(startingIndex)
 
 #the execution loop
-Running = True
-
 def start():
     count = 0
-    while(Running):
-        opcode = decode()
-
+    while(True):
         print("Instruction Number", count)
-        print("Opcode: ", opcode)
+        opCode = decode()
+        Interrupt = execute(opCode)
+
+        if(Interrupt):  
+            print(Interrupt)
+            break;
+            
+        displayMemory()
         count += 1
 
-        #print("PC Value: ", pcIntValue())
-        #print("SC Value: ", scIntValue())
-        #print(stack)
-        execute(opcode)
-        
-        displayMemory()
-
-        if(opcode == 243): #break the execution loop at opcode for END
-            print("END.")
-            break
 start()
 
 

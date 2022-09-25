@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../OSproject')
-from InstructionSet.InstructionCode import *
+from InstructionSet.Instruction_code import *
 
 
 InstructionList = {
@@ -32,7 +32,6 @@ InstructionList = {
         # Memory Instructions
             81: movl,
             82: movs,
-
             113: shl,
             114: shr,
             115: rtl,

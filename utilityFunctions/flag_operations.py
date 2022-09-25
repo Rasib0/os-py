@@ -48,9 +48,9 @@ def ArithmeticLogicalFlagTest(sum: int, num1: int, num2: int):
     if((num1^sum)&(num2^sum)&0x8000): setOF() #when sign of both inputs is different from the sign of the result
 
 def shiftRotateFlagTest(before: int, after: int): 
-    if(after == 0): setZF()
-    if(before > 0x8000): setCF()
-    if(after > 0x8000): setSF()
+    if(after == 0): setZF() #when the results is 0
+    if(before > 0x8000): setCF() #when the most significant bit is 1 before operation
+    if(after > 0x8000): setSF() #when the most significant bit is 1 after operation
     pass
 
 
