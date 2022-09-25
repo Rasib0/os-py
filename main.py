@@ -12,7 +12,7 @@ def run():
     count = 0
     Running = True
     while(Running):
-        print("Instruction Number", count)
+        print("Instruction Number:", count)
         #decode the first byte
         opCode = decode()
         #execute the instruction of opcode
