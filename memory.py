@@ -17,7 +17,7 @@ for i in range(32):
 
 
 #Giving the special purpose registers aliases for easy access
-sRegister = R[16]
+zeroRegister = R[16]
 
 codeRegister = {"base": R[17],
                "limit": R[18],

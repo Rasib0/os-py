@@ -1,6 +1,6 @@
 from Memory import *
 from utilityFunctions.counter_operations import setPc
-from FetchExecuteCycleFunctions import  decode, displayMemory, writeInMemory,  execute
+from cycle_functions import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
 startingIndex = 0
@@ -12,9 +12,10 @@ def start():
     count = 0
     while(True):
         print("Instruction Number", count)
+
         opCode = decode()
         Interrupt = execute(opCode)
-
+        
         if(Interrupt):  
             print(Interrupt)
             break;
