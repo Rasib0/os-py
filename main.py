@@ -13,7 +13,7 @@ def run():
         opCode = decode()
         #execute the instruction of opcode
         Interrupt = execute(opCode)
-        #
+        
         if(Interrupt):  
             print(Interrupt)
             Running = False
