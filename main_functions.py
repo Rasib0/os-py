@@ -10,8 +10,6 @@ def writeInMemory(path: str, location: int): #writes in memory starting from loc
         memory[location+i] = int(byteString[i])
     pc.setInt(location)
 
-
-
 def decode(): #decode the opcode at the current PC and updates PC
     opcode = memory[pc.getInt()]
     pc.inc()
