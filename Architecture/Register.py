@@ -1,4 +1,6 @@
-from utilities.base_conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
+import sys
+sys.path.append('../OSproject')
+from Utilities.base_conversions import twoBytesToInt, intToTwoBytes, twoBytesToHex
 
 class Register:
     def __init__(self):

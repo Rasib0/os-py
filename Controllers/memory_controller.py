@@ -1,18 +1,18 @@
 import sys
 sys.path.append('../OSproject')
-from Storage.Register import Register
-from utilities.base_conversions import twoBytesToInt
-from Storage.Memory import R, memory, pc, sc, zeroRegister, stack
+from Architecture.Register import Register
+from Utilities.base_conversions import twoBytesToInt
+from Architecture.Memory import R, memory, pc, sc, zeroRegister, stack
 
 
 # PC/memory operations
 
-def fetchRegister() -> Register: #fetches the register in memory currently and updates Pc
+def fetchRegister(): #fetches the register in memory currently and updates Pc
     error = False
     register_number =memory[pc.getInt()]
 
     if(register_number > 15 and register_number < 32):
-        error = "Error: Cannot move to special purpose register R[" +str(register_number-16) +"]"
+        error = "Error: Cannot change to special purpose register R[" +str(register_number-16) +"]"
         return [zeroRegister, error] #register unchanged because error 
 
     elif(register_number >= 32):
@@ -26,10 +26,9 @@ def fetchRegister() -> Register: #fetches the register in memory currently and u
 def fetchImmediate(): #fetches the 2 byte immediate value in memory currently and updates PC
     error = False
     temp = bytearray(2)
-    temp[0]  = memory[pc.getInt()]
+    temp[0] = memory[pc.getInt()]
     pc.inc()
     temp[1] =  memory[pc.getInt()]
     immediate = twoBytesToInt(temp)
     pc.inc()
-    return [immediate, error]
-
+    return [immediate]
