@@ -16,55 +16,55 @@ def mov():
 def add():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() + B.intValue()
+        sum = A.getInt() + B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum) 
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum) 
     return error
 
 def sub():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() - B.intValue()
+        sum = A.getInt() - B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum)
     return error
 
 def mul():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() * B.intValue()
+        sum = A.getInt() * B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum)
     return error
 
 def div():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() / B.intValue()
+        sum = A.getInt() / B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum)
     return error
 
 def and_():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() & B.intValue()
+        sum = A.getInt() & B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum)
     return error_perm
 
 def or_():
     [A, B, error] = getRegisterRegisterOperands()
     if(not error):
-        sum = A.intValue() | B.intValue()
+        sum = A.getInt() | B.getInt()
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), B.intValue())
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), B.getInt())
+        A.setInt(sum)
     return error
 
 #------------------Register-Immediate Instructions------------------#
@@ -72,62 +72,62 @@ def or_():
 def movi():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        A.insert(immediate)
+        A.setInt(immediate)
     return error
 
 def addi():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() + immediate
+        sum = A.getInt() + immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum) 
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum) 
     return error
 
 def subi():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() - immediate
+        sum = A.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum)
     return error
 
 def muli():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() - immediate
+        sum = A.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum)
     return error
 
 
 def divi():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() - immediate
+        sum = A.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum)
     return error
 
 def andi():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() - immediate
+        sum = A.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum)
     return error
 
 def ori():
     [A, immediate, error] = getRegisterImmediateOperands()
     if(not error):
-        sum = A.intValue() - immediate
+        sum = A.getInt() - immediate
         sum = sum & 0xFFFF
-        ArithmeticLogicalFlagTest(sum, A.intValue(), immediate)
-        A.insert(sum)
+        ArithmeticLogicalFlagTest(sum, A.getInt(), immediate)
+        A.setInt(sum)
     return error
 
 def bz():
@@ -192,49 +192,49 @@ def movs():
 def shl():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.intValue()
+        x = A.getInt()
         result = x << 1
-        A.insert(result)
+        A.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def shr():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.intValue()
+        x = A.getInt()
         result = x >> 1
-        A.insert(result)
+        A.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def rtl():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.intValue()
+        x = A.getInt()
         result = 0x8000 | x >> 1 if x & 0x1 != 0 else x >> 1
-        A.insert(result)
+        A.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def rtr():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        x = A.intValue()
+        x = A.getInt()
         result = (0x1 | x << 1) & 0xFFFF if x & 0x8000 != 0 else (x << 1) & 0xFFFF
-        A.insert(result)
+        A.setInt(result)
         shiftRotateFlagTest(x, result)
     return error
 
 def inc():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        A.insert(A.intValue() + 1)
+        A.setInt(A.getInt() + 1)
     return error
 
 def dec():
     [A, error] = getSingleRegisterOperand()
     if (not error):
-        A.insert(A.intValue() - 1)
+        A.setInt(A.getInt() - 1)
     return error
 
 def push():

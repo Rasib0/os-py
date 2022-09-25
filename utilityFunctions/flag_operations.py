@@ -7,39 +7,39 @@ def checkBit(num: int, position: int) -> int:
    return (num >> position) & 1
 
 def CF():
-    return checkBit(flagRegister.intValue(), 0)
+    return checkBit(flagRegister.getInt(), 0)
 def ZF():
-    return checkBit(flagRegister.intValue(), 1)
+    return checkBit(flagRegister.getInt(), 1)
 def SF():
-    return checkBit(flagRegister.intValue(), 2)
+    return checkBit(flagRegister.getInt(), 2)
 def OF():
-    return checkBit(flagRegister.intValue(), 3)
+    return checkBit(flagRegister.getInt(), 3)
 
 #set flags
 def setCF():
-    flagRegister.insert(flagRegister.intValue() | 0x1)
+    flagRegister.insert(flagRegister.getInt() | 0x1)
 
 def setZF():
-    flagRegister.insert(flagRegister.intValue() | 0x2)
+    flagRegister.insert(flagRegister.getInt() | 0x2)
 
 def setSF():
-    flagRegister.insert(flagRegister.intValue() | 0x4)
+    flagRegister.insert(flagRegister.getInt() | 0x4)
 
 def setOF():
-    flagRegister.insert(flagRegister.intValue() | 0x8)
+    flagRegister.insert(flagRegister.getInt() | 0x8)
 
 #clear flags
 def clearCF():
-    flagRegister.insert(flagRegister.intValue() & 0xFFFE)
+    flagRegister.insert(flagRegister.getInt() & 0xFFFE)
 
 def clearZF():
-    flagRegister.insert(flagRegister.intValue() & 0xFFFD)
+    flagRegister.insert(flagRegister.getInt() & 0xFFFD)
 
 def clearSF():
-    flagRegister.insert(flagRegister.intValue() & 0xFFFB)
+    flagRegister.insert(flagRegister.getInt() & 0xFFFB)
 
 def clearOF():
-    flagRegister.insert(flagRegister.intValue() & 0xFFF7)
+    flagRegister.insert(flagRegister.getInt() & 0xFFF7)
 
 
 def ArithmeticLogicalFlagTest(sum: int, num1: int, num2: int):

@@ -7,24 +7,24 @@ from Memory import memory, R, stack, codeRegister, stackRegister
 #----------- PC ------------#
 
 def pc(): #returns the pc value as an int
-    return codeRegister['counter'].intValue()
+    return codeRegister['counter'].getInt()
 
 def setPc(value: int): #set the PC to the int value
-    codeRegister['counter'].insert(value)
+    codeRegister['counter'].setInt(value)
     
 def incPc(by_index: int = 1): #updates PC by the index value
-    codeRegister['counter'].insert(pc() + by_index)
+    codeRegister['counter'].setInt(pc() + by_index)
 
 
 #----------- SC -------------#
 def sc():
-    return stackRegister['counter'].intValue()
+    return stackRegister['counter'].getInt()
 
 def setSc(value: int):
-    stackRegister['counter'].insert(value)
+    stackRegister['counter'].setInt(value)
     
 def incSc(by_index: int = 1): #updates SC by the index value
-    stackRegister['counter'].insert(sc() + by_index)
+    stackRegister['counter'].setInt(sc() + by_index)
 
 
 
