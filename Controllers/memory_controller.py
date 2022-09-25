@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../OSproject')
 from Architecture.Register import Register
-from utilities.base_conversions import twoBytesToInt
+from Utilities.base_conversions import twoBytesToInt
 from Architecture.Memory import R, memory, pc, sc, zeroRegister, stack
 
 
