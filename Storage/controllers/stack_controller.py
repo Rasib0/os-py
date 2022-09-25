@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../OSproject')
 from Storage.Register import Register
-from utility.base_conversions import twoBytesToInt
+from utilities.base_conversions import twoBytesToInt
 from Storage.Memory import  sc, stack
 
 

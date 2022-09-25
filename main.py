@@ -3,7 +3,7 @@ from cycle_functions import  decode, displayMemory, writeInMemory,  execute
 
 #write the byte stream in memory starting from starting index
 startingIndex = 0
-writeInMemory('p1-test.txt', startingIndex)
+writeInMemory('p1.txt', startingIndex)
 pc.setInt(startingIndex)
 
 #the execution loop
