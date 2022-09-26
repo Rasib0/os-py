@@ -1,7 +1,6 @@
 
-from InstructionSet.Instruction_list import InstructionList
-from Architecture.Memory import memory, R, flagRegister, pc
-from Controllers.flag_controller import CF, ZF, SF, OF
+from Instruction_list import InstructionList
+from Architecture.Memory import memory, R, flagRegister, pc, CF, ZF, SF, OF
 
 def writeInMemory(path: str, location: int): #writes in memory starting from location and sets pc to location
     with open(path) as f:

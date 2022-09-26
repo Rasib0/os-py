@@ -1,10 +1,9 @@
+from InstructionSet.Instruction_utility.memory_controller import *
+from InstructionSet.Instruction_utility.flag_controller import *
+from InstructionSet.Instruction_utility.stack_controller import *
 import sys
 sys.path.append('../OSproject')
-
-from Controllers.memory_controller import *
-from Controllers.flag_controller import *
-from Controllers.stack_controller import *
-from Architecture.Memory import memory, pc
+from Architecture.Memory import memory, pc, CF, ZF, SF, OF
 
 #Instruction code which all follow the same format: 
 

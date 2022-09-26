@@ -35,3 +35,16 @@ flagRegister: Register = R[25]
 
 pc: Register = codeRegister['counter']
 sc: Register = stackRegister['counter']
+
+#Giving the flags purpose registers aliases for easy access
+def CF():
+    return checkBit(flagRegister.getInt(), 0)
+def ZF():
+    return checkBit(flagRegister.getInt(), 1)
+def SF():
+    return checkBit(flagRegister.getInt(), 2)
+def OF():
+    return checkBit(flagRegister.getInt(), 3)
+
+def checkBit(num: int, position: int) -> int:
+   return (num >> position) & 1

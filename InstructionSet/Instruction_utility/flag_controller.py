@@ -5,18 +5,6 @@ from Architecture.Memory import flagRegister
 # 1) This file contains set, clear, get functions for carry, zero, sign and overflow flags
 # 2) It also has the Arithmetic, Logical, Shift tests for operations that affect the flag
 
-def checkBit(num: int, position: int) -> int:
-   return (num >> position) & 1
-
-def CF():
-    return checkBit(flagRegister.getInt(), 0)
-def ZF():
-    return checkBit(flagRegister.getInt(), 1)
-def SF():
-    return checkBit(flagRegister.getInt(), 2)
-def OF():
-    return checkBit(flagRegister.getInt(), 3)
-
 #set flags
 def setCF():
     flagRegister.setInt(flagRegister.getInt() | 0x1)
