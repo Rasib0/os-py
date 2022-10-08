@@ -251,7 +251,7 @@ def shr():
         shiftRotateFlagTest(x, result)
     return error
 
-def rtl():
+def rtr():
     [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
@@ -260,7 +260,7 @@ def rtl():
         shiftRotateFlagTest(x, result)
     return error
 
-def rtr():
+def rtl():
     [R1, error] = fetchRegister()
     if (not error):
         x = R1.getInt()
